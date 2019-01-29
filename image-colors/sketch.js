@@ -1,38 +1,39 @@
-const BACKGROUND = "white";
-const PADDING = 100;
-let imageUrl = "https://images.unsplash.com/photo-1548636200-691c76f69390?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60";
-let input;
-let button;
-let img;
+var BACKGROUND = "white";
+var PADDING = 100;
+var imageUrl = "https://images.unsplash.com/photo-1548636200-691c76f69390?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60";
+var input;
+var button;
+var img;
+var randomX;
 
 function setup() {
   createCanvas(windowHeight - PADDING, windowHeight - PADDING)
   noStroke(); // No outline stroke
   noLoop();
+  createInputs();
+
+}
+function createInputs() {
   input = createInput();
   input.position(20, 10);
 
   button = createButton('generate new art');
   button.position(input.x + input.width + 10, 10);
   button.mouseClicked(newArt);
-
 }
 
 function draw() {
-
   background(BACKGROUND);
-  // image(img, 0, 0);
   img.loadPixels();
-  const randomX = floor(random(0, img.width));
-
-  push()
-  for (let i = 0; i <= img.height; i++) {
+  drawLines();
+}
+function drawLines() {
+  randomX = floor(random(0, img.width));
+  for (var i = 0; i <= img.height; i++) {
     let pix = img.get(randomX, i);
     stroke(pix);
     line(0, i, img.width, i)
   }
-  pop()
-
 }
 
 function preload() {
